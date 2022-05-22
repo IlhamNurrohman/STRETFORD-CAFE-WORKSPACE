@@ -2,100 +2,76 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Register.css" />
-    <title>Sign Up</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stretford Cafe - Login</title>
+    <link rel="stylesheet" href="assets/style.css" />
 </head>
 
 <body>
     <div class="container">
-        <aside class="side-content">
-        </aside>
-
-        <main class="main-content">
-            <header class="main-header">
-                <section class="box-title1">
-                    <img src="assets/icon/coffee 1.png" class="logo">
-                    <p class="header-name">Stretford Cafe</p>
-                </section>
-                <section class="box-title2">
-                    <p class="header-title">LOGIN</p>
-                </section>
+        <div class="column-image">
+            <img src="assets/img/robert-bye-95vx5QVl9x4-unsplash 2.png" class="side-image" alt="aside image" />
+        </div>
+        <div class="column-main">
+            <header class="side-title">
+                <img src="assets/icon/coffee 1.png" alt="logo-icon" />
+                <h2 class="header-title">Stretford Cafe</h2>
+                <h1 class="page-title">Login</h1>
             </header>
-
-
-            <section class="main-form">
-                <form action="" class="register-form">
-                    <label for="email">Email Address :</label><input type="text" id="email"
-                        placeholder="Enter your email address">
-                    <label for="password">Password :</label><input type="password" id="password"
-                        placeholder="Enter your password">
-                    <label for="forgot-password"><a href="">Forgot Password </a></label>
-                    <div class="register-submit">Login</div>
-                    <div class="signup-google"><img
-                            src="assets/icon/google-logo-png-suite-everything-you-need-know-about-google-newest-0 2.png"
-                            alt="" class="google-icon"> Login with Google</div>
-
-                    <section class="side-login">
-                        <section class="has-account">
-                            <div class="underline"></div>
-                            <p class="has-account-text">Don't have an account?</p>
-                            <div class="underline"></div>
-                        </section>
-                        <div class="login-button">Sign up Here</div>
-                    </section>
+            <section class="register">
+                <form class="register-form">
+                    <label for="email">Email Address :</label>
+                    <input type="text" name="email" placeholder="Enter your email address" />
+                    <label for="password">Password :</label>
+                    <input type="password" name="password" placeholder="Enter your password" />
+                    <a href="" class="forgot-pass">Forgot password ?</a>
+                    <div class="register-button">Login</div>
                 </form>
-            </section>
-
-            <footer>
-                <div class="footer-flex-container">
-                    <div class="footer-flex-item">
-                        <h4><img src="assets/icon/coffee 1.png" alt="logo" style="width: 30px;"/>Stretford Cafe</h4>
-                        <p>Coffee Shop is a store that sells some good meals, and
-                            especially
-                            coffee. We provide high quality beans</p>
-                        <img src="assets/icon/Facebook.png" alt="" class="facebook">
-                        <img src="assets/icon/Twitter.png" alt="" class="twitter">
-                        <img src="assets/icon/Intagram.png" alt="" class="instagram">
-                    </div>
-
-                    <div class="footer-list-item">
-                        <div>
-                            <h4>Product</h4>
-                            <div class="footer-list">
-                                <div class="footer-list-item">
-                                    <p>Download</p>
-                                    <p>Location</p>
-                                    <p>Blog</p>
-                                </div>
-                                <div class="footer-list-item">
-                                    <p>Pricing</p>
-                                    <p>Countries</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h4>Engage</h4>
-                            <div class="footer-list">
-                                <div class="footer-list-item">
-                                    <p>Stretford Cafe</p>
-                                    <p>FAQ</p>
-                                    <p>Term of Service</p>
-                                </div>
-                                <div class="footer-list-item">
-                                    <p>About Us</p>
-                                    <p>Privacy Policy</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="google-button">
+                    <img class="google-icon"
+                        src="assets/icon/google-logo-png-suite-everything-you-need-know-about-google-newest-0 2.png"
+                        alt="google-icon" /> Login with Google
                 </div>
+                <section class="already-account">
+                    <div class="underline"></div>
+                    <p class="already-account-text">Don't have an account?</p>
+                    <div class="underline"></div>
+                </section>
+                <div class="login-here-button" onclick="window.location.href='Register.html'">Sign up Here</div>
+            </section>
+            <footer>
+                <aside class="describe" aria-label="">
+                    <img src="assets/icon/coffee 1.png" class="logo" alt="logo-icon" />
+                    <h2 class="footer-title">Stretford Cafe</h2>
+                    <p class="footer-text">Stretford Cafe is a store that sells some good meals, and especially coffee.
+                        We provide high quality beans</p>
+                    <img src="assets/icon/Facebook.png" alt="facebook-icon" />
+                    <img src="assets/icon/Twitter.png" alt="twitter-icon" />
+                    <img src="assets/icon/Intagram.png" alt="instagram-icon" />
+                    <p class="footer-text">@2022Stretford Cafe</p>
+                </aside>
+                <aside class="link" aria-label="">
+                    <h2 class="link-title">Product</h2>
+                    <div class="link-item">
+                        <a href="">Download</a>
+                        <a href="">Pricing</a>
+                        <a href="">Locations</a>
+                        <a href="">Countries</a>
+                        <a href="">Blog</a>
+                    </div>
+                    <h2 class="link-title">Engage</h2>
+                    <div class="link-item">
+                        <a href="">Coffe Shop ?</a>
+                        <a href="">About Us</a>
+                        <a href="">FAQ</a>
+                        <a href="">Privacy Policy</a>
+                        <a href="">Terms of Service</a>
+                    </div>
+                </aside>
             </footer>
-
-        </main>
+        </div>
     </div>
 </body>
 

@@ -331,17 +331,17 @@ span.navbar-text {
 .row {
   padding-left: 10%;
 }
-.hero-image {
+.home-image {
   background-image: url("img/nathan-dumlao-71u2fOofI-U-unsplash\ 2.png");
   height: 638px;
   width: 100% !important;
 }
-.hero-title {
+.home-title {
   padding-top: 30%;
   font-family: 'Rubik';
   color: white;
 }
-.hero-desc {
+.home-desc {
   color: white;
 }
 .body-card{

@@ -482,11 +482,11 @@ span.navbar-text {
 }
 
 .card-layout-hazelnut {
-  padding-bottom: 8%;
+  margin-bottom: -5%;
 }
 
 .card-layout-pinky {
-  padding-bottom: 9%;
+  padding-bottom: 0;
 }
 
 .card-layout-active {

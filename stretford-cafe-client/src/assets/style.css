@@ -20,7 +20,7 @@ body {
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 840px) {
   .side-title {
     padding: 0 0% !important;
   }
@@ -64,8 +64,10 @@ body {
   }
 
   .body-card {
-    width: 75% !important;
-    height: 10% !important;
+    width: 80%;
+    height: 10%;
+    font-size: 16px;
+    text-align: left;
   }
 }
 
@@ -377,7 +379,7 @@ span.navbar-text {
 
 /*content team work */
 .img-team {
-  width: 100% !important;
+  width: 100% ;
 }
 
 .text-item {
@@ -771,4 +773,18 @@ span.navbar-text {
   padding-left: 10%;
   padding-top: 5%;
   font-family: 'Rubik';
+}
+.label-input {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0px
+}
+label {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+
+  color: #9F9F9F;
 }

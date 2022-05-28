@@ -10,6 +10,9 @@ import './index.css';
 import Home from "./pages/Home";
 import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
+import ForgotPassword from "./pages/Auth/Forgot Password";
+import Product from "./pages/Product";
+import ProductDetail from "./pages/Product Detail";
 import Profile from "./pages/Profile";
 
 function App(){
@@ -20,6 +23,9 @@ function App(){
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Profile" element={<Profile />} />
+          <Route path="/Product" element={<Product />} />
+          <Route path="/ForgorPassword" element={<ForgotPassword />} />
+          <Route path="/ProductDetail" element={<ProductDetail />} />
         </Routes>
       </Router>
   );

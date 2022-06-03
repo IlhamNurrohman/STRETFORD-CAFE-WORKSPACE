@@ -1,28 +1,144 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import Header from "../../component/Header/Header";
 import Footer from "../../component/Footer/Footer";
+import CardProduct from "../../component/CardProduct/CardProduct";
 import mothersImg from "../../assets/img/image 46.png";
 import sundayImg from "../../assets/img/image 43.png";
 import halloweenImg from "../../assets/img/image 45.png";
-import veggieImg from "../../assets/img/image 2.png";
-import hazulnutImg from "../../assets/img/image 22 (1).png";
-import summerImg from "../../assets/img/image 2 (3).png";
-import creamImg from "../../assets/img/image 22 (2).png";
-import drumImg from "../../assets/img/image 23.png";
-import saltyImg from "../../assets/img/image 2 (2).png";
 
 
-import Badge from 'react-bootstrap/Badge';
 import "./Product.css";
+import withSearchParams from "../../Helper/withSearchParams";
+import withLocation from "../../Helper/withLocation";
+import withParams from "../../Helper/withParams";
 
-export default class Product extends Component {
+import {
+    getProduct,
+    getFavorite,
+    // getSearch,
+    getAllProduct,
+} from "../../utiliti/product";
+
+class Product extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            product: {
+                isFavorite: [],
+                isCoffee: [],
+                isNonCoffee: [],
+                isFood: [],
+                isAll: [],
+                allProduct: [],
+                // find: [],
+            }
+        };
+    }
+    getAllProductsPage = () => {
+        getAllProduct()
+            .then((res) => {
+                this.setState({
+                    product: { ...this.state.product, allProduct: res.data.data },
+                });
+            })
+            .catch((err) => {
+                console.log("ERROR GET PRODUCTS", err);
+            });
+    };
+    getFav = () => {
+        getFavorite()
+            .then((res) => {
+                this.setState({
+                    product: { ...this.state.product, isFavorite: res.data.data },
+                });
+            })
+            .catch((err) => {
+                console.log("Product not defined", err);
+            });
+    };
+
+    getCoffee = (categories) => {
+        getProduct(categories)
+            .then((res) => {
+                this.setState({
+                    product: { ...this.state.product, isCoffee: res.data.data },
+                });
+            })
+            .catch((err) => {
+                console.log("Product not defined", err);
+            });
+    };
+    getNonCoffee = (categories) => {
+        getProduct(categories)
+            .then((res) => {
+                this.setState({
+                    product: { ...this.state.product, isNonCoffee: res.data.data },
+                });
+            })
+            .catch((err) => {
+                console.log("Product not defined", err);
+            });
+    };
+    getFood = (categories) => {
+        getProduct(categories)
+            .then((res) => {
+                this.setState({
+                    product: { ...this.state.product, isFood: res.data.data },
+                });
+            })
+            .catch((err) => {
+                console.log("Product not defined", err);
+            });
+    };
+    // getSearchProduct = (find) => {
+    //     getSearch(find)
+    //         .then((res) => {
+    //             this.setState({
+    //                 product: { ...this.state.product, find: res.data.data },
+    //             });
+    //         })
+    //         .catch((err) => {
+    //             console.log("ERROR SEARCH PRODUCT", err);
+    //         });
+    // };
+
+    componentDidMount() {
+        this.getAllProductsPage();
+    }
+
+    componentDidUpdate(pageProps) {
+        const {
+            //location: { find },
+            searchParams,
+            params,
+        } = this.props;
+        if (pageProps.searchParams !== searchParams) {
+            this.getCoffee("coffee");
+            this.getNonCoffee("non coffee");
+            this.getFood("food");
+            //this.getSearchProduct(find.slice(6));
+        }
+        if (pageProps.params !== params) {
+            this.getFav();
+        }
+    }
+
     render() {
+        const { searchParams, params,
+        } = this.props;
+        console.log(searchParams.get("categories"));
+
+        const { product } = this.state;
+        const { isFavorite, isCoffee, isNonCoffee, isFood, categories, allProduct } = product;
+        //console.log(isFavorite);
+        //const categories = this.props.match.params.categories;
         return (
             <div>
-                <Header />
+                <Header searchParams={searchParams.get("name")} />
                 <div className="container-fluid">
-                    <div className="row" style={{ height: "100%", maxWidth: "100%", paddingLeft: "5%" }}>
+                    <div className="row" style={{ height: "100%", maxWidth: "100%", paddingLeft: "5%", marginBottom: "80px" }}>
                         <div className="col-sm-4" style={{ width: "40%" }}>
                             <h3 className="user-profile" style={{ color: "rgba(106, 64, 41, 1)", fontFamily: "Rubik", paddingLeft: "19%" }}>Promo Today</h3>
                             <h6 className="desc"
@@ -99,176 +215,94 @@ export default class Product extends Component {
                                 <br />4. Should make member card to apply coupon</p>
                         </div>
                         <div className="col-sm-8" style={{ borderLeft: "1px rgba(159, 159, 159, 1)", width: "60%" }}>
-                            <nav className="nav" style={{ paddingLeft: "10%", width: "100%" }}>
-                                <a className="nav-link active" aria-current="page" href="#"
-                                    style={{ color: "rgba(106, 64, 41, 1)", borderBottom: "2px", solid: "rgba(106, 64, 41, 1)" }}>Favorite &
-                                    Promo</a>
-                                <a className="nav-link disabled" href="#">Coffee</a>
-                                <a className="nav-link disabled" href="#">Non Coffee</a>
-                                <a className="nav-link disabled">Foods</a>
-                                <a className="nav-link disabled">Add-on</a>
+                            <nav className="navbar" style={{ paddingLeft: "10%", width: "100%" }}>
+                                <ul className="wrapper-menu-category">
+                                    <li className={isFavorite === undefined ? 'active-menu' : null}>
+                                        <Link to="/product/favorite">Favorite & Promo</Link>
+                                    </li>
+                                    <li className={categories === 'coffee' ? 'active-menu' : null}>
+                                        <Link to="/product?categories=coffee">Coffee</Link>
+                                    </li>
+                                    <li className={categories === 'non coffee' ? 'active-menu' : null}>
+                                        <Link to="/product?categories=non+coffee">Non Coffee</Link>
+                                    </li>
+                                    <li className={categories === 'food' ? 'active-menu' : null}>
+                                        <Link to="/product?categories=food">Foods</Link>
+                                    </li>
+                                </ul>
                             </nav>
-                            <div className="row row-cols-1 row-cols-md-4 g-3" style={{ paddingTop: "10%", maxWidth: "600px" }}>
-                                <div className="col" style={{ paddingLeft: "3%" }}>
-                                    <div className="card"
-                                        style={{ borderRadius: "30px", width: "126px", height: "212.41px", boxShadow: "0px 30px 60px", color: "rgba(57, 57, 57, 0.1)" }}>
-                                        <img src={veggieImg} className="" style={{ borderRadius: "100px", width: "70%", marginTop: "-30%", marginLeft: "15%" }}>
-                                            {/* <Badge bg="secondary">10%
-                                            <span classNameName="visually-hidden">unread messages</span>
-                                            </Badge> */}
-                                        </img>
-                                        <div className="card-body">
-                                            <h5 className="card-title">Veggie tomato mix</h5>
-                                            <p className="card-text"
-                                                style={{ textAlign: "center", fontFamily: "Rubik", color: "rgba(106, 64, 41, 1)" }}>IDR
-                                                34.000</p>
+                            <div className="row row-cols-1 row-cols-md-4 g-3" style={{ paddingTop: "10%", maxWidth: "650px" }}>
+                                {params.favorite === "favorite" ? isFavorite.map((product) => {
+                                    return (
+                                        <div className="col" style={{ marginLeft: "0%", marginRight: "0%", marginBottom: "30px" }}>
+                                            <CardProduct
+                                                id={product.id}
+                                                pictures={`http://localhost:8000${product.pictures}`}
+                                                name={product.name}
+                                                price={product.price}
+                                                key={product.id}
+                                            />
                                         </div>
-                                    </div>
-                                </div>
-                                <div className="col" style={{ paddingLeft: "6%" }}>
-                                    <div className="card"
-                                        style={{ borderRadius: "30px", width: "126px", height: "212.41px", boxShadow: "0px 30px 60px rgba(57, 57, 57, 0.1)" }}>
-                                        <img src={hazulnutImg} className="" style={{ borderRadius: "100px", width: "70%", marginTop: "-30%", marginLeft: "15%" }} />
-                                        <div className="card-body">
-                                            <h5 className="card-title">Hazelnut Latte</h5>
-                                            <p className="card-text"
-                                                style={{ textAlign: "center", fontFamily: "Rubik", color: "rgba(106, 64, 41, 1)", paddingTop: "35%" }}>
-                                                IDR 25.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col" style={{ paddingLeft: "9%" }}>
-                                    <div className="card"
-                                        style={{ borderRadius: "30px", width: "126px", height: "212.41px", boxShadow: "0px 30px 60px rgba(57, 57, 57, 0.1)" }}>
-                                        <img src={summerImg} className="" style={{ borderRadius: "100px", width: "70%", marginTop: "-30%", marginLeft: "15%" }}></img>
-                                        <div className="card-body">
-                                            <h5 className="card-title">Summer fried rice</h5>
-                                            <p className="card-text"
-                                                style={{ textAlign: "center", fontFamily: "Rubik", color: "rgba(106, 64, 41, 1)", paddingTop: "35%" }}>
-                                                IDR 32.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col" style={{ paddingLeft: "12%" }}>
-                                    <div className="card"
-                                        style={{ borderRadius: "30px", width: "126px", height: "212.41px", boxShadow: "0px 30px 60px rgba(57, 57, 57, 0.1)" }}>
-                                        <img src={creamImg} className="" style={{ borderRadius: "100px", width: "70%", marginTop: "-30%", marginLeft: "15%" }} />
-                                        <div className="card-body">
-                                            <h5 className="card-title">Creamy Ice Latte</h5>
-                                            <p className="card-text"
-                                                style={{ paddingTop: "30%", textAlign: "center", fontFamily: "Rubik", color: "rgba(106, 64, 41, 1)" }}>
-                                                IDR 27.000</p>
-                                        </div>
-                                    </div>
-                                </div>
+                                    );
+                                })
+                                    // : searchParams.get("name") === location.find.slice(6)
+                                    //     ? find.map((product) => {
+                                    //         return (
+                                    //             <CardProduct
+                                    //                 id={product.id}
+                                    //                 pictures={`http://localhost:8000${product.pictures}`}
+                                    //                 name={product.name}
+                                    //                 price={product.price}
+                                    //                 key={product.id}
+                                    //             />
+                                    //         );
+                                    //     })
+                                        : searchParams.get("categories") === "coffee" ? isCoffee.map((product) => {
+                                            return (
+                                                <CardProduct
+                                                    id={product.id}
+                                                    pictures={`http://localhost:8000${product.pictures}`}
+                                                    name={product.name}
+                                                    price={product.price}
+                                                    key={product.id}
+                                                />
+                                            );
+                                        })
+                                            : searchParams.get("categories") === "non coffee" ? isNonCoffee.map((product) => {
+                                                return (
+                                                    <CardProduct
+                                                        id={product.id}
+                                                        pictures={`http://localhost:8000${product.pictures}`}
+                                                        name={product.name}
+                                                        price={product.price}
+                                                        key={product.id}
+                                                    />
+                                                );
+                                            })
+                                                : searchParams.get("categories") === "food" ? isFood.map((product) => {
+                                                    return (
+                                                        <CardProduct
+                                                            id={product.id}
+                                                            pictures={`http://localhost:8000${product.pictures}`}
+                                                            name={product.name}
+                                                            price={product.price}
+                                                            key={product.id}
+                                                        />
+                                                    );
+                                                })
+                                                    : allProduct.map((product) => {
+                                                        return (
+                                                            <CardProduct
+                                                                id={product.id}
+                                                                pictures={`http://localhost:8000${product.pictures}`}
+                                                                name={product.name}
+                                                                price={product.price}
+                                                                key={product.id}
+                                                            />
+                                                        );
+                                                    })}
                             </div>
-                            <div className="row row-cols-1 row-cols-md-4 g-3" style={{ paddingTop: "10%", maxWidth: "600px" }}>
-                                <div className="col" style={{ paddingLeft: "3%" }}>
-                                    <div className="card"
-                                        style={{ borderRadius: "30px", width: "126px", height: "212.41px", boxShadow: "0px 30px 60px rgba(57, 57, 57, 0.1)" }}>
-                                        <img src={drumImg} className="" style={{ borderRadius: "100px", width: "70%", marginTop: "-30%", marginLeft: "15%" }}></img>
-                                        <div className="card-body">
-                                            <h5 className="card-title" style={{ fontFamily: "Rubik" }}>Drum <br />Sticks</h5>
-                                            <p className="card-text"
-                                                style={{ paddingTop: "30%", textAlign: "center", fontFamily: "Rubik", color: "rgba(106, 64, 41, 1)" }}>
-                                                IDR
-                                                30.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col" style={{ paddingLeft: "6%" }}>
-                                    <div className="card"
-                                        style={{ borderRadius: "30px", width: "126px", height: "212.41px", boxShadow: "0px 30px 60px rgba(57, 57, 57, 0.1)" }}>
-                                        <img src={saltyImg} className="" style={{ borderRadius: "100px", width: "70%", marginTop: "-30%", marginLeft: "15%" }} />
-                                        <div className="card-body">
-                                            <h5 className="card-title">Salty<br /> Rice</h5>
-                                            <p className="card-text"
-                                                style={{ paddingTop: "30%", textAlign: "center", fontFamily: "Rubik", color: "rgba(106, 64, 41, 1)" }}>
-                                                IDR
-                                                25.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col" style={{ paddingLeft: "9%" }}>
-                                    <div className="card"
-                                        style={{ borderRadius: "30px", width: "126px", height: "212.41px", boxShadow: "0px 30px 60px rgba(57, 57, 57, 0.1)" }}>
-                                        <img src={summerImg} className="" style={{ borderRadius: "100px", width: "70%", marginTop: "-30%", marginLeft: "15%" }}></img>
-                                        <div className="card-body">
-                                            <h5 className="card-title">Summer fried rice</h5>
-                                            <p className="card-text"
-                                                style={{ paddingTop: "30%", textAlign: "center", fontFamily: "Rubik", color: "rgba(106, 64, 41, 1)" }}>
-                                                IDR
-                                                32.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col" style={{ paddingLeft: "12%" }}>
-                                    <div className="card"
-                                        style={{ borderRadius: "30px", width: "126px", height: "212.41px", boxShadow: "0px 30px 60px rgba(57, 57, 57, 0.1)" }}>
-                                        <img src={creamImg} className="" style={{ borderRadius: "100px", width: "70%", marginTop: "-30%", marginLeft: "15%" }} />
-                                        <div className="card-body">
-                                            <h5 className="card-title">Creamy Ice Latte</h5>
-                                            <p className="card-text"
-                                                style={{ paddingTop: "30%", textAlign: "center", fontFamily: "Rubik", color: "rgba(106, 64, 41, 1)" }}>
-                                                IDR 27.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row row-cols-1 row-cols-md-4 g-3" style={{ paddingTop: "10%", maxWidth: "600px" }}>
-                                <div className="col" style={{ paddingLeft: "3%" }}>
-                                    <div className="card"
-                                        style={{ borderRadius: "30px", width: "126px", height: "212.41px", boxShadow: "0px 30px 60px", color: "rgba(57, 57, 57, 0.1)" }}>
-                                        <img src={veggieImg} className="" style={{ borderRadius: "100px", width: "70%", marginTop: "-30%", marginLeft: "15%" }}>
-                                            {/* <Badge bg="secondary">10%
-                                            <span classNameName="visually-hidden">unread messages</span>
-                                            </Badge> */}
-                                        </img>
-                                        <div className="card-body">
-                                            <h5 className="card-title">Veggie tomato mix</h5>
-                                            <p className="card-text"
-                                                style={{ textAlign: "center", fontFamily: "Rubik", color: "rgba(106, 64, 41, 1)" }}>IDR
-                                                34.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col" style={{ paddingLeft: "6%" }}>
-                                    <div className="card"
-                                        style={{ borderRadius: "30px", width: "126px", height: "212.41px", boxShadow: "0px 30px 60px rgba(57, 57, 57, 0.1)" }}>
-                                        <img src={hazulnutImg} className="" style={{ borderRadius: "100px", width: "70%", marginTop: "-30%", marginLeft: "15%" }} />
-                                        <div className="card-body">
-                                            <h5 className="card-title">Hazelnut Latte</h5>
-                                            <p className="card-text"
-                                                style={{ textAlign: "center", fontFamily: "Rubik", color: "rgba(106, 64, 41, 1)", paddingTop: "35%" }}>
-                                                IDR 25.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col" style={{ paddingLeft: "9%" }}>
-                                    <div className="card"
-                                        style={{ borderRadius: "30px", width: "126px", height: "212.41px", boxShadow: "0px 30px 60px rgba(57, 57, 57, 0.1)" }}>
-                                        <img src={summerImg} className="" style={{ borderRadius: "100px", width: "70%", marginTop: "-30%", marginLeft: "15%" }}></img>
-                                        <div className="card-body">
-                                            <h5 className="card-title">Summer fried rice</h5>
-                                            <p className="card-text"
-                                                style={{ textAlign: "center", fontFamily: "Rubik", color: "rgba(106, 64, 41, 1)", paddingTop: "35%" }}>
-                                                IDR 32.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col" style={{ paddingLeft: "12%" }}>
-                                    <div className="card"
-                                        style={{ borderRadius: "30px", width: "126px", height: "212.41px", boxShadow: "0px 30px 60px rgba(57, 57, 57, 0.1)" }}>
-                                        <img src={creamImg} className="" style={{ borderRadius: "100px", width: "70%", marginTop: "-30%", marginLeft: "15%" }} />
-                                        <div className="card-body">
-                                            <h5 className="card-title">Creamy Ice Latte</h5>
-                                            <p className="card-text"
-                                                style={{ paddingTop: "30%", textAlign: "center", fontFamily: "Rubik", color: "rgba(106, 64, 41, 1)" }}>
-                                                IDR 27.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -277,3 +311,4 @@ export default class Product extends Component {
         );
     }
 }
+export default withLocation(withSearchParams(withParams(Product)));

@@ -1,17 +1,17 @@
 import axios from "axios";
 
-export async function getProduct(categories) {
+export async function getProduct(categories, search, page = 1) {
   try {
-    const URL = `http://localhost:8000/products?categories=${categories}&page=1&limit=12`;
+    const URL = `${process.env.REACT_APP_API_HOST}/products?categories=${categories}&page=${page}&limit=12&name${search}`;
     const result = await axios.get(URL);
     return result;
   } catch (error) {
     console.log(error);
   }
 }
-export async function getSearch(find) {
+export async function getSearch(search) {
   try {
-    const URL = `http://localhost:8000/products?=${find}&page=1&limit=12`;
+    const URL = `${process.env.REACT_APP_API_HOST}/products?=${search}&page=1&limit=12`;
     const results = await axios.get(URL);
     return results;
   } catch (error) {
@@ -20,7 +20,7 @@ export async function getSearch(find) {
 }
 export async function getFavorite() {
   try {
-    const URL = `http://localhost:8000/products/favorite`;
+    const URL = `${process.env.REACT_APP_API_HOST}/products/favorite`;
     const results = await axios.get(URL);
     return results;
   } catch (error) {
@@ -29,26 +29,20 @@ export async function getFavorite() {
 }
 export async function getAllProduct() {
   try {
-    const URL = `http://localhost:8000/products?page=1&limit=12`;
+    const URL = `${process.env.REACT_APP_API_HOST}/products?page=1&limit=12`;
     const results = await axios.get(URL);
     return results;
   } catch (error) {
     console.log(error);
   }
 }
-
-{/* <input
-                                type="text"
-                                className="form-control ps-5 rounded-5 bg-light"
-                                id="exampleFormControlInput1"
-                                placeholder="search"
-                                onChange={(event) => {
-                                    event.preventDefault();
-                                    navigate(`/products?=${event.target.value}`);
-                                }}
-                            />
-                            <img
-                                className="position-relative bottom-50 img-search"
-                                src={Search}
-                                alt="search"
-                            /> */}
+export const getProductDetail = async (id) => {
+  try {
+    const URL = `${process.env.REACT_APP_API_HOST}/products/detail/${id}`;
+    const results = await axios.get(URL);
+    //console.log(results)
+    return results;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -93,14 +93,16 @@ body {
     color: #9F9F9F;
   }
 
-  input[type="email"],
+  
+  input[type="text"],
   input[type="date"] {
     background-color: white;
-    border-bottom: 1.5px solid black;
+    border-bottom: 1.5px solid black ;
     border-radius: 0%;
     border-top: none;
     border-left: none;
     border-right: none;
+    width: 100%;
   }
   
   input:focus {
@@ -114,3 +116,31 @@ body {
     border-left: none;
     border-right: none;
   }
+  .form-top {
+    display: flex;
+    justify-content: space-between;
+}
+  .edit-bullet {
+    margin-top: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: #6A4029;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-right: 5%;
+    cursor: pointer;
+
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
+
+.edit-bullet-img {
+    width: 15px;
+}
+

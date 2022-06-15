@@ -1,48 +1,9 @@
-@font-face {
-    font-family: "Rubik";
-    src: url("../../assets/font/Rubik/Rubik-VariableFont_wght.ttf");
-}
-
-@font-face {
-    font-family: "Poppins";
-    src: url("../../assets/font/Poppins/Poppins-Regular.ttf");
-}
-
-@media (max-width:860px) {
-    .pd-main-content {
-        flex-direction: column;
-    }
-
-    .pd-left-content {
-        width: 100%;
-    }
-
-    .pd-right-content {
-        width: 100%;
-    }
-
-    .pd-checkout-container {
-        flex-direction: column;
-        width: 100%;
-        margin-bottom: -120px;
-    }
-
-    .pd-product-checkout {
-        width: 100%;
-    }
-
-    .pd-checkout-button {
-        margin-top: 25px;
-        width: 100%;
-        height: 50px;
-    }
-}
-
 .pd-main-container {
     background-color: #EDEDED;
     padding-left: 5%;
     padding-right: 5%;
     padding-top: 50px;
+    margin-bottom: 50px;
 }
 
 .pd-title-menu {
@@ -52,9 +13,15 @@
     line-height: 24px;
     letter-spacing: 0em;
     text-align: left;
-    margin-bottom: 20px;
-    margin-left: 80px;
-    margin-top: 10px;
+    margin-top: 20px;
+    text-transform: capitalize;
+    margin-left: 55px;
+
+    color: #4F5665;
+}
+
+.pd-title-menu a {
+    text-decoration: none;
 
     color: #4F5665;
 }
@@ -88,9 +55,9 @@
 }
 
 .pd-main-img {
-    margin-top: -60px;
     width: 400px;
-    border-radius: 100%;
+    border-radius: 50%;
+    margin-top: -100px;
 }
 
 .pd-main-product-name {
@@ -107,16 +74,19 @@
     text-align: center;
     margin: 0px;
 
+    text-transform: uppercase;
+
 }
 
 .pd-main-product-name p {
-    font-family: "Poppins";
+    font-family: Poppins;
     font-size: 25px;
     font-weight: 500;
     line-height: 30px;
     letter-spacing: 0em;
     text-align: center;
     margin: 0px;
+
 
 }
 
@@ -128,7 +98,7 @@
     background: #6A4029;
     border-radius: 20px;
 
-    font-family: "Poppins";
+    font-family: Poppins;
     font-size: 20px;
     font-weight: 700;
     line-height: 38px;
@@ -164,7 +134,7 @@
     background: #FFBA33;
     border-radius: 20px;
 
-    font-family: "Poppins";
+    font-family: Poppins;
     font-size: 20px;
     font-weight: 700;
     line-height: 38px;
@@ -196,18 +166,22 @@
 .pd-right-content {
     flex: 3;
     width: 50%;
-    margin-top: -50px;
+}
+
+.pd-desc-info {
+    min-height: 280px;
+    margin-top: 40px;
 }
 
 .pd-desc-card {
     background: #FFFFFF;
     border-radius: 20px;
-    padding: 50px 10%
+    padding: 50px 10%;
 }
 
 .pd-desc-delivery {
 
-    font-family: "Poppins";
+    font-family: Poppins;
     font-size: 25px;
     font-weight: 400;
     line-height: 35px;
@@ -218,7 +192,7 @@
 }
 
 .pd-desc-delivery span {
-    font-family: "Poppins";
+    font-family: Poppins;
     font-size: 25px;
     font-weight: 700;
     line-height: 35px;
@@ -228,13 +202,12 @@
 }
 
 .pd-desc-info {
-    font-family: "Poppins";
+    font-family: Poppins;
     font-size: 25px;
     font-weight: 400;
     line-height: 35px;
     letter-spacing: 0.03em;
     text-align: left;
-    padding-top: 20px;
 
     letter-spacing: 0.03em;
 
@@ -250,7 +223,7 @@
 }
 
 .pd-size-title {
-    font-family: "Poppins";
+    font-family: Poppins;
     font-size: 25px;
     font-weight: 700;
     line-height: 38px;
@@ -264,11 +237,12 @@
     margin-top: 30px;
 }
 
+
 .pd-size-vector {
-    background-color: #FFBA33;
     width: 70px;
     height: 70px;
     border-radius: 50%;
+    z-index: 2;
 
     margin-left: 25px;
     margin-right: 25px;
@@ -282,6 +256,7 @@
     font-weight: 700;
     line-height: 45px;
     letter-spacing: 0em;
+    color: #000000;
     text-align: center;
     cursor: pointer;
 
@@ -293,13 +268,36 @@
 
 }
 
-.pd-size-vector:hover {
+.pd-size-checkmark {
+    width: 70px;
+    height: 70px;
+    z-index: -1;
+    border-radius: 50%;
+    position: absolute;
+    background-color: #F4F4F8;
+}
+
+
+.pd-size-vector:hover input~.pd-size-checkmark {
     background-color: #fcaf16;
 }
 
-.pd-size-vector:active {
+.pd-size-vector input:checked~.pd-size-checkmark {
     background-color: #FFBA33;
 }
+
+.pd-size-input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
+
 
 .pd-delivery-container {
     display: flex;
@@ -311,6 +309,100 @@
 
 .pd-delivery-button {
     display: flex;
+}
+
+.pd-dm-button-active {
+    width: 120px;
+    height: 40px;
+    margin: 20px 10px;
+
+    background: #6A4029;
+    box-shadow: 0px 6px 20px rgba(137, 85, 55, 0.4);
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #FFFFFF;
+}
+
+.pd-dm-button-inactive {
+    width: 120px;
+    height: 40px;
+    margin: 20px 10px;
+
+    background: #F4F4F8;
+    border-radius: 10px;
+    border: 1px solid #BABABA59;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #9F9F9F;
+
+}
+
+.pd-dm-input {
+    position: absolute;
+    opacity: 0;
+}
+
+.pd-dm-checkmark{
+    position: absolute;
+    width: 130px;
+    height: 40px;
+    margin: 20px 10px;
+
+    background: #F4F4F8;
+    border-radius: 10px;
+    border: 1px solid #BABABA59;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #9F9F9F;
+    cursor: pointer;
+
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
+
+.pd-dm-button-inactive:hover input~.pd-dm-checkmark {
+    background: #6A4029;
+    box-shadow: 0px 6px 20px rgba(137, 85, 55, 0.4);
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+.pd-dm-button-inactive input:checked~.pd-dm-checkmark {
+    background: #6A4029;
+    box-shadow: 0px 6px 20px rgba(137, 85, 55, 0.4);
+    color: #FFFFFF;
+    font-weight: 700;
 }
 
 .pd-delivery-dinein-button {
@@ -326,7 +418,7 @@
     justify-content: center;
     align-items: center;
 
-    font-family: "Poppins";
+    font-family: Poppins;
     font-size: 16px;
     font-weight: 700;
     line-height: 24px;
@@ -349,7 +441,7 @@
     justify-content: center;
     align-items: center;
 
-    font-family: "Poppins";
+    font-family: Poppins;
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
@@ -372,7 +464,7 @@
     justify-content: center;
     align-items: center;
 
-    font-family: "Poppins";
+    font-family: Poppins;
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
@@ -383,7 +475,7 @@
 }
 
 .pd-settime label {
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
@@ -405,22 +497,27 @@
     color: #9F9F9F;
     background-color: #EDEDED;
 
-    border: none;
-    border-bottom: 1px solid #9F9F9F
+    
+    border-bottom: 1.5px solid black !important;
+    border-radius: 0%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
 }
 
 .pd-settime input:active,
 .pd-settime input:focus {
-    border: none;
-    border-bottom: 1px solid #000000;
-    outline: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1.5px solid black ;
 }
 
 .pd-checkout-container {
     z-index: 1;
     display: flex;
-    padding: 10px 5%;
-    margin-bottom: -10px;
+    padding: 0px 5%;
+    margin-bottom: -75px;
     justify-content: center;
 }
 
@@ -453,7 +550,7 @@
 }
 
 .pd-checkout-name {
-    font-family: "Poppins";
+    font-family: Poppins;
     font-size: 25px;
     font-weight: 900;
     line-height: 38px;
@@ -484,7 +581,7 @@
 }
 
 .pd-quantity {
-    font-family: "Poppins";
+    font-family: Poppins;
     font-size: 25px;
     font-weight: 900;
     line-height: 38px;
@@ -504,7 +601,7 @@
     background: rgba(231, 170, 54, 0.52);
     border-radius: 50%;
 
-    font-family: "Poppins";
+    font-family: Poppins;
     font-size: 25px;
     font-weight: 900;
     line-height: 38px;
@@ -529,7 +626,7 @@
     background: rgba(231, 170, 54, 0.52);
     border-radius: 50%;
 
-    font-family: "Poppins";
+    font-family: Poppins;
     font-size: 25px;
     font-weight: 900;
     line-height: 38px;
@@ -551,7 +648,7 @@
     border-radius: 20px;
     width: 20%;
 
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
     font-size: 25px;
@@ -577,4 +674,34 @@
 
 .pd-checkout-button:active {
     background-color: #FFBA33;
+}
+
+@media (max-width:860px) {
+    .pd-main-content {
+        flex-direction: column;
+    }
+
+    .pd-left-content {
+        width: 100%;
+    }
+
+    .pd-right-content {
+        width: 100%;
+    }
+
+    .pd-checkout-container {
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: -120px;
+    }
+
+    .pd-product-checkout {
+        width: 100%;
+    }
+
+    .pd-checkout-button {
+        margin-top: 25px;
+        width: 100%;
+        height: 50px;
+    }
 }
